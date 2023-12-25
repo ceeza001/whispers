@@ -1,7 +1,6 @@
 import * as z from "zod";
 import { Models } from "appwrite";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -24,7 +23,6 @@ type RoomFormProps = {
 };
 
 const RoomForm = ({ message, room }: RoomFormProps) => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useUserContext();
   
@@ -64,7 +62,7 @@ const RoomForm = ({ message, room }: RoomFormProps) => {
             <FormField
             control={form.control}
             name="content"
-            calssName="w-full"
+            className="w-full"
             render={({ field }) => (
               <FormItem>
                 <FormControl>

@@ -78,10 +78,6 @@ const Profile = () => {
   const value = currentUser?.room ? `https://whispers.blckcube.repl.co/${currentUser.room.$id}` : '';
 
   // Filter groups where current user is a member
-  const filteredMembers = groups?.documents.flatMap(group =>
-    group.members.filter(member => member === user.id)
-  );
-
   const filteredGroups = groups?.documents.filter(group =>
     group.members.some(member => member === user.id) && group.members.length > 0
   );

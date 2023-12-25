@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useParams } from "react-router-dom";
 
 import {
   useGetRoomById,
 } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
 
-import RoomForm from "@/components/forms/RoomForm";
 import { Loader, RoomBox } from "@/components/shared";
-import { Button } from "@/components/ui";
 import { useToast } from "@/components/ui/use-toast";
 import SignupMini from "@/components/forms/SignupMini"
 import SigninMini from "@/components/forms/SigninMini"
 
 const Room = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { user, isAuthenticated } = useUserContext();
-  const { toast } = useToast();
   const [signin, setSignin] = useState(false);
   
   const { data: currentRoom } = useGetRoomById(id || "");
