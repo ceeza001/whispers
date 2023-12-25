@@ -98,7 +98,6 @@ export const useGetRoomMessages = (roomId?: string) => {
 };
 
 export const useDeleteRoom = () => {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ roomId }: { roomId?: string }) =>
       deleteRoom(roomId)
