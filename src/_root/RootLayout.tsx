@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import { Topbar, Footer } from "@/components/shared";
+import { Topbar } from "@/components/shared";
 
 const RootLayout = () => {
   return (

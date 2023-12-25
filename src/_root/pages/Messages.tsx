@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Models } from "appwrite";
 
-import { GridPostList, Loader, FooterMini } from "@/components/shared";
+import { GridPostList, Loader } from "@/components/shared";
 import { useUpdateStatus, useGetCurrentUser } from "@/lib/react-query/queries";
 
 const Messages = () => {
   const { data: currentUser } = useGetCurrentUser();
-  const { mutateAsync: updateStatus, isLoading: isLoadingUpdate } =
+  const { mutateAsync: updateStatus } =
     useUpdateStatus();
 
   useEffect(() => {

@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom"
-
 import { 
   Hero,
   Features,
@@ -10,8 +8,7 @@ import {
 import { Button } from "@/components/ui"
 
 const Home = () => {
-  const navigate = useNavigate();
-
+  
   return (
     <div className="home-container overflow-hidden">
       <Hero />

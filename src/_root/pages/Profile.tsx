@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import{CopyToClipboard} from 'react-copy-to-clipboard';
 import { TiTick } from 'react-icons/ti';
 import { FaCopy } from 'react-icons/fa';
@@ -20,8 +20,8 @@ const Profile = () => {
   const { user } = useUserContext();
   const navigate = useNavigate();
 
-  const { data: currentUser, isLoading: isUserLoading } = useGetUserById(user.id || "");
-  const { data: groups, isLoading, isError: isErrorGroups} = useGetUserGroups(user.id || "");
+  const { data: currentUser } = useGetUserById(user.id || "");
+  const { data: groups, isLoading } = useGetUserGroups(user.id || "");
 
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
