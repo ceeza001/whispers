@@ -80,7 +80,7 @@ const Topbar = () => {
           )}
           <div className="flex gap-4 md:hidden">
             <Sheet>
-              <SheetTrigger className="flex-center gap-3">
+              <SheetTrigger>
                 <img
                   src="/assets/icons/menu.svg"
                   alt="profile"
