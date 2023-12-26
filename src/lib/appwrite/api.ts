@@ -1,7 +1,53 @@
 import { ID, Query } from "appwrite";
 
 import { appwriteConfig, account, databases, storage, avatars } from "./config";
-import { INewGroup, INewMessage, INewUser, IUpdateUser } from "@/types";
+import { INewGroup, INewUser, IUpdateUser } from "@/types";
+
+// ============================== UPLOAD FILE
+export async function uploadFile(file: File) {
+  try {
+    const uploadedFile = await storage.createFile(
+      appwriteConfig.storageId,
+      ID.unique(),
+      file
+    );
+
+    return uploadedFile;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// ============================== GET FILE URL
+export function getFilePreview(fileId: string) {
+  try {
+    const fileUrl = storage.getFilePreview(
+      appwriteConfig.storageId,
+      fileId,
+      2000,
+      2000,
+      "top",
+      100
+    );
+
+    if (!fileUrl) throw Error;
+
+    return fileUrl;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// ============================== DELETE FILE
+export async function deleteFile(fileId: string) {
+  try {
+    await storage.deleteFile(appwriteConfig.storageId, fileId);
+
+    return { status: "ok" };
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // ============================================================
 // AUTH
@@ -158,7 +204,7 @@ export async function writeMessage(room: string, content: string) {
 }
 
 // ============================== UPDATE STATUS
-export async function updateStatus(message: string, status: string) {
+export async function updateStatus(message: string) {
   try {
     //  Update status
     const updatedStatus = await databases.updateDocument(
@@ -283,7 +329,6 @@ export async function updateUser(user: IUpdateUser) {
       user.userId,
       {
         username: user.username,
-        bio: user.bio,
         imageUrl: image.imageUrl,
         imageId: image.imageId,
       }
