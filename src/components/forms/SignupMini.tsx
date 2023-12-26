@@ -1,7 +1,6 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import * as z from "zod";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -16,7 +15,6 @@ import { useUserContext } from "@/context/AuthContext";
 
 const SignupMini = () => {
   const { toast } = useToast();
-  const navigate = useNavigate();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
   const [errorMessage, setErrorMessage] = useState(null);
 

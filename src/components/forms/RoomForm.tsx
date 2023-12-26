@@ -62,7 +62,6 @@ const RoomForm = ({ message, room }: RoomFormProps) => {
             <FormField
             control={form.control}
             name="content"
-            className="w-full"
             render={({ field }) => (
               <FormItem>
                 <FormControl>
