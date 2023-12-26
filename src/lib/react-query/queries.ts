@@ -123,8 +123,8 @@ export const useWriteMessage = () => {
 export const useUpdateStatus = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ message, status }: { message: string; status: string }) =>
-      updateStatus(message, status),
+    mutationFn: ({ message }: { message: string }) =>
+      updateStatus(message),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],

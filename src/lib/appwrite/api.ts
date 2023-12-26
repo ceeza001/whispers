@@ -88,7 +88,7 @@ export async function createUserAccount(user: INewUser) {
 export async function saveUserToDB(user: {
   accountId: string;
   email: string;
-  imageUrl: string; // Assuming imageUrl is a string
+  imageUrl: URL; // Assuming imageUrl is a url
   username?: string;
 }) {
   try {
@@ -378,7 +378,6 @@ export async function createGroup(group: INewGroup) {
     );
 
     if (!newGroup) {
-      await deleteFile(uploadedFile.$id);
       throw Error("Failed to create group");
     }
 
@@ -409,7 +408,7 @@ export async function joinRoom(roomId: string, membersArray: string[]) {
 }
 
 // ============================== GET USER'S GROUP
-export async function getUserGroups(userId: string) {
+export async function getUserGroups() {
   // Create an array to store queries for fetching groups
   const queries: any[] = [
     Query.orderDesc("$createdAt"),
