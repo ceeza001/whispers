@@ -2,7 +2,6 @@ import {
   useQuery,
   useMutation,
   useQueryClient,
-  useInfiniteQuery,
 } from "@tanstack/react-query";
 
 import { QUERY_KEYS } from "@/lib/react-query/queryKeys";
@@ -24,7 +23,7 @@ import {
   updateUser,
   createGroup,
 } from "@/lib/appwrite/api";
-import { INewMessage, INewUser, IUpdatePost, IUpdateUser, INewGroup } from "@/types";
+import { INewUser, IUpdateUser, INewGroup } from "@/types";
 
 // ============================================================
 // AUTH QUERIES
@@ -61,13 +60,7 @@ export const useCreateGroup = () => {
 
 export const useJoinRoom = () => {
   return useMutation({
-    mutationFn: ({
-      roomId,
-      membersArray,
-    }: {
-      roomId: string;
-      membersArray: string[];
-    }) => {
+    mutationFn: ({ roomId, membersArray }: { roomId: string; membersArray: string[] }) => {
       return joinRoom(roomId, membersArray);
     }
   });
