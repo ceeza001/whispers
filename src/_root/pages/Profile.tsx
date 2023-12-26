@@ -21,7 +21,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const { data: currentUser } = useGetUserById(user.id || "");
-  const { data: groups, isLoading } = useGetUserGroups(user.id || "");
+  const { data: groups } = useGetUserGroups(user.id || "");
 
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);

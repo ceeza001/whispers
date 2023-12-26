@@ -66,10 +66,10 @@ export const useJoinRoom = () => {
   });
 };
 
-export const useGetUserGroups = (userId?: string, limit?: number) => {
+export const useGetUserGroups = (userId: string) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_USER_GROUPS, userId],
-    queryFn: () => getUserGroups(userId, limit),
+    queryFn: () => getUserGroups(userId),
     enabled: !!userId,
   });
 };
