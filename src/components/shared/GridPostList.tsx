@@ -1,6 +1,4 @@
 import { Models } from "appwrite";
-import { Link } from "react-router-dom";
-import { useUserContext } from "@/context/AuthContext";
 import { Button } from "@/components/ui";
 import { multiFormatDateString } from "@/lib/utils";
 
@@ -11,12 +9,11 @@ type GridPostListProps = {
 const GridPostList = ({
   messages,
 }: GridPostListProps) => {
-  const { user } = useUserContext();
   
   return (
     <ul className="grid-container">
       {messages.map((message, index) => (
-        <li key={message.$id} className="text-text-color relative min-w-80 h-auto">
+        <li key={index} className="text-text-color relative min-w-80 h-auto">
           <div className="grid-poem_link">
             <span className="mb-4 text-center small-regular text-light-3"> ---{message.$id}--- </span>
             <p
