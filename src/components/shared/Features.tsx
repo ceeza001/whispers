@@ -1,8 +1,5 @@
-import React from "react";
-import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
 import { features } from "@/constants";
-import { textVariant } from "@/lib/motion";
 
 const Features = () => {
   return (

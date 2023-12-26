@@ -16,7 +16,6 @@ import {
 } from "@/components/ui";
 import { MessageValidation } from "@/lib/validation";
 import { useToast } from "@/components/ui/use-toast";
-import { useUserContext } from "@/context/AuthContext";
 import { Loader } from "@/components/shared";
 import { useWriteMessage } from "@/lib/react-query/queries";
 
@@ -28,7 +27,6 @@ type WriteFormProps = {
 const WriteForm = ({ message, room }: WriteFormProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { user } = useUserContext();
   const form = useForm<z.infer<typeof MessageValidation>>({
     resolver: zodResolver(MessageValidation),
     defaultValues: {

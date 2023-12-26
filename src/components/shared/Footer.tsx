@@ -1,10 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { footerLinks } from "@/constants";
 
 const Footer = () => {
-  const { pathname } = useLocation();
-
+  
   return (
     <section className="flex-center p-[1rem] md:px-8 lg:px-14 flex-col bg-dark-1">
       <div className="flex-start md:flex-row flex-col mb-8 w-full">
@@ -31,7 +30,9 @@ const Footer = () => {
                       index !== footerlink.links.length - 1 ? "mb-4" : "mb-0"
                     }`}
                   >
-                    {link.name}
+                    <Link>
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>

@@ -1,7 +1,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   Form,
@@ -23,11 +23,10 @@ import {
 
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea, Input, Button } from "@/components/ui";
-import { Loader } from "@/components/shared";
 
 import { RoomValidation } from "@/lib/validation";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetUserById, useCreateGroup } from "@/lib/react-query/queries";
+import { useCreateGroup } from "@/lib/react-query/queries";
 
 const CreateRoom = () => {
   const { toast } = useToast();

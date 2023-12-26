@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { Models } from "appwrite";
+import { useState, useEffect } from 'react';
 import client, { appwriteConfig } from "@/lib/appwrite/config";
-import { ID, Query, Permission, Role} from 'appwrite';
-import { databases } from "@/lib/appwrite/config"; // Check if it's the correct import path
 
 type RoomMessagesProps = {
   currentRoom: Models.Document;

@@ -1,13 +1,7 @@
 import { motion } from "framer-motion";
-import { textVariant } from "@/lib/motion";
 import { Button } from "@/components/ui"
 import { ParticlesContainer, VelocityScroll } from "./"
 import { Link } from "react-router-dom"
-
-const letterVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: 0.5, ease: "easeOut" } },
-};
 
 const Hero = () => {
   return (

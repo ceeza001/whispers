@@ -1,8 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-
 const Footer = () => {
-  const { pathname } = useLocation();
-
+  
   return (
     <section className="flex-col mt-[6rem] pb-4">
       <div className="text-center w-full flex items-center flex-col pt-6 border-t-[1px] border-t-[#3F3E45]">
