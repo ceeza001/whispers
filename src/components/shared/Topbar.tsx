@@ -7,7 +7,7 @@ import { FaCopy } from 'react-icons/fa';
 import { INavLink } from "@/types";
 import { Loader } from "@/components/shared/";
 import { Button } from "../ui/button";
-import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
+import { useUserContext } from "@/context/AuthContext";
 import { useGetUserById, useSignOutAccount } from "@/lib/react-query/queries";
 import { navbarLinks } from "@/constants";
 
@@ -36,7 +36,7 @@ export const navLinks = [
 const Topbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
+  const { user, isLoading } = useUserContext();
   const { mutate: signOut, isSuccess } = useSignOutAccount();
 
   const [copied, setCopied] = useState(false);
@@ -96,7 +96,7 @@ const Topbar = () => {
                       </div>
                     ) : (
                       <div className="flex flex-col mt-4 gap-3">
-                        <Link className="flex flex-col gap-3 items-center justify-center w-full">
+                        <div className="flex flex-col gap-3 items-center justify-center w-full">
                           <img
                             src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
                             alt="profile"
@@ -105,7 +105,7 @@ const Topbar = () => {
                           <div className="text-center">
                             <p className="body-bold">{user.username}</p>
                           </div>
-                        </Link>
+                        </div>
                         <span className="mx-auto max-w-[10rem] small-regular text-light-3 cursor-pointer">
                           {currentUser ? (
                             <CopyToClipboard 
