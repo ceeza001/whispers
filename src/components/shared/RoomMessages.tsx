@@ -35,7 +35,7 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
 
       if (response.events.includes("databases.*.collections.*.documents.*.delete")) {
         console.log('A MESSAGE WAS DELETED!!!');
-        setMessages(prevState => prevState.filter(message => message?.$id !== response.payload?.$id));
+        setMessages(prevState => prevState.filter(message => message?.$id !== (response.payload as Message)?.$id));
       }
     });
 
