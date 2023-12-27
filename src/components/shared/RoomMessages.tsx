@@ -1,6 +1,7 @@
 import { Models } from "appwrite";
 import { useState, useEffect } from 'react';
 import client, { appwriteConfig } from "@/lib/appwrite/config";
+import { Loader } from "@/components/shared"
 
 type RoomMessagesProps = {
   currentRoom: Models.Document;
