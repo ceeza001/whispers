@@ -6,9 +6,18 @@ type RoomMessagesProps = {
   currentRoom: Models.Document;
   user: Models.Document;
 };
-const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
-  const [messages, setMessages] = useState([]);
 
+type Message = {
+  $id?: string;
+  sender?: {
+    $id?: string;
+  };
+  content?: string;
+};
+
+const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
+  const [messages, setMessages] = useState<Message[]>([]);
+  
   const getMessages = () => {
     setMessages(currentRoom?.messages);
   }
