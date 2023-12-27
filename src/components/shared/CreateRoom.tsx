@@ -61,15 +61,16 @@ const CreateRoom = () => {
   
   return (
   		<Dialog>
-        <DialogTrigger
-          className="profile-tab rounded-lg ">
-          <img
-            src={"/assets/icons/add.svg"}
-            alt="like"
-            width={20}
-            height={20}
-          />
-          Create room
+        <DialogTrigger>
+          <div className="profile-tab rounded-lg ">
+            <img
+              src={"/assets/icons/add.svg"}
+              alt="like"
+              width={20}
+              height={20}
+            />
+            Create room
+          </div>
         </DialogTrigger>
         
         <DialogContent>
