@@ -79,8 +79,7 @@ export async function createUserAccount(user: INewUser) {
     return newUser;
   } catch (error) {
     console.error("Error creating user account:", error);
-    
-    return error;
+    throw error; // Re-throw the error for handling at a higher level if needed
   }
 }
 
@@ -125,8 +124,7 @@ export async function signInAccount(user: { email: string; password: string }) {
     return session;
   } catch (error) {
     console.log(error);
-    
-    return error;
+    throw new Error(error.message); // Throw an error with a message
   }
 }
 

@@ -18,7 +18,7 @@ const SignupForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -30,8 +30,8 @@ const SignupForm = () => {
   });
 
   // Queries
-  const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } = useCreateUserAccount();
-  const { mutateAsync: signInAccount, isLoading: isSigningInUser } = useSignInAccount();
+  const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateUserAccount();
+  const { mutateAsync: signInAccount, isPending: isSigningInUser } = useSignInAccount();
   
   // Handler
   const handleSignup = async (user: z.infer<typeof SignupValidation>) => {
@@ -44,9 +44,9 @@ const SignupForm = () => {
         return;
       }
       
-      setErrorMessage(newUser.message);
+      setErrorMessage("");
 
-      if (!newUser.message) {
+      if (newUser) {
         const session = await signInAccount({
           email: user.email,
           password: user.password,
@@ -72,6 +72,9 @@ const SignupForm = () => {
       }
     } catch (error) {
       console.log({ error });
+      // Use assertion to tell TypeScript the type of error
+      setErrorMessage((error as Error)?.message || "Unknown error");
+      toast({ title: (error as Error)?.message || "Unknown error" });
     }
   };
   

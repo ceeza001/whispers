@@ -18,10 +18,10 @@ const SigninForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
   
   // Query
-  const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
+  const { mutateAsync: signInAccount } = useSignInAccount();
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -32,26 +32,31 @@ const SigninForm = () => {
   });
 
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
-    const session = await signInAccount(user);
+    try {
+      const session = await signInAccount(user);
 
-    if (!session) {
-      toast({ title: "Login failed. Please try again." });
-      
-      return;
-    }
+      if (!session) {
+        toast({ title: "Login failed. Please try again." });
+        return;
+      }
 
-    setErrorMessage(session.message);
-    const isLoggedIn = await checkAuthUser();
-    console.log(isLoggedIn);
+      setErrorMessage(""); // Reset error message if successful login
+      const isLoggedIn = await checkAuthUser();
+      console.log(isLoggedIn);
 
-    if (isLoggedIn) {
-      form.reset();
-      navigate("/profile");
-    } else {
-      toast({ title: "Login failed. Please try again." });
+      if (isLoggedIn) {
+        form.reset();
+        navigate("/profile");
+      } else {
+        toast({ title: "Login failed. Please try again." });
+      }
+    } catch (error) {
+      // Use assertion to tell TypeScript the type of error
+      setErrorMessage((error as Error)?.message || "Unknown error");
+      toast({ title: (error as Error)?.message || "Unknown error" });
     }
   };
-
+  
   return (
     <Form {...form}>
       <div className="p-[1rem] sm:max-w-420 flex-center flex-col">
