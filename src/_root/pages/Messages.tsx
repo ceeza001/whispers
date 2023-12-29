@@ -12,7 +12,11 @@ const Messages = () => {
   useEffect(() => {
     const updateMessages = async () => {
       try {
-        await Promise.all(currentUser?.room.messages.map(message => updateStatus({ message: message.$id })));
+        await Promise.all(
+          currentUser?.room.messages.map((message: Models.Document) =>
+            updateStatus({ message: message.$id })
+          )
+        );
         console.log('All messages updated successfully');
       } catch (error) {
         console.error('Error updating messages:', error);

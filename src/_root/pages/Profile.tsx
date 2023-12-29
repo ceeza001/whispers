@@ -1,3 +1,5 @@
+import { Models } from "appwrite";
+
 import { useState, useEffect } from 'react';
 import{CopyToClipboard} from 'react-copy-to-clipboard';
 import { TiTick } from 'react-icons/ti';
@@ -21,7 +23,7 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const { data: currentUser } = useGetUserById(user.id || "");
-  const { data: groups, isLoading } = useGetUserGroups(user.id || "");
+  const { data: groups, isLoading } = useGetUserGroups();
 
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -86,7 +88,7 @@ const Profile = () => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `${currentUser.username}'s profile`,
+          title: `${currentUser?.username}'s profile`,
           text: 'Drop a mystery note! Send me an anonymous message and let the fun begin! 🕵️‍♂️💌',
           url: value,
         });
@@ -99,7 +101,7 @@ const Profile = () => {
     }
   };
 
-  const unreadMessagesCount = currentUser.room.messages.filter(message => message.status === "unread").length;
+  const unreadMessagesCount = currentUser?.room?.messages.filter((message: Models.Document) => message.status === "unread").length || 0;
 
   return (
     <><div className="profile-container relative">
@@ -107,7 +109,7 @@ const Profile = () => {
         <div className="flex flex-col items-center gap-3">
           <img
             src={
-              currentUser.imageUrl || "/assets/icons/profile-placeholder.svg"
+              currentUser?.imageUrl || "/assets/icons/profile-placeholder.svg"
             }
             alt="profile"
             className="w-24 h-24 lg:h-36 lg:w-36 rounded-full"
@@ -115,7 +117,7 @@ const Profile = () => {
           <div className="flex flex-col flex-1 justify-between md:mt-2">
             <div className="flex flex-col w-full">
               <h1 className="text-center h3-bold md:h1-semibold w-full">
-                {currentUser.username}
+                {currentUser?.username}
               </h1>
               <span className="mx-auto text-center max-w-[15rem] text-gray-500 cursor-pointer">
                 <CopyToClipboard 
