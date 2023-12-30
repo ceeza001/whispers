@@ -20,12 +20,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
 export const navLinks = [
   {id: 1, title: "Home", path: "/home"},
   {id: 2, title: "Support", path: "/support"},

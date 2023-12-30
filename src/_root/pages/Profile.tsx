@@ -21,10 +21,10 @@ import { Button } from "@/components/ui"
 const Profile = () => {
   const { user } = useUserContext();
   const navigate = useNavigate();
-
+  
   const { data: currentUser } = useGetUserById(user.id || "");
   const { data: groups, isLoading } = useGetUserGroups();
-
+  
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(true);
   
@@ -80,8 +80,8 @@ const Profile = () => {
   const value = currentUser?.room ? `https://whispers.blckcube.repl.co/${currentUser.room.$id}` : '';
 
   // Filter groups where current user is a member
-  const filteredGroups = groups?.documents.filter(group =>
-    group.members.some(member => member === user.id) && group.members.length > 0
+  const filteredGroups = groups?.documents.filter((group: Models.Document) =>
+    group.members.some((member: string) => member === user.id) && group.members.length > 0
   );
 
   const handleShare = async () => {
@@ -224,9 +224,9 @@ const Profile = () => {
         ) : (
           <>
             {filteredGroups?.map((room) => (
-            <ul className="flex flex-col gap-4">
-              <GridGroupList room={room} />
-            </ul>
+              <ul className="flex flex-col gap-4" key={room.id}>
+                <GridGroupList room={room} />
+              </ul>
             ))}
           </>
         )}
