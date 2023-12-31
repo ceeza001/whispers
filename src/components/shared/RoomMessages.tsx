@@ -1,11 +1,14 @@
 import { Models } from "appwrite";
 import { useState, useEffect } from 'react';
+
 import client, { appwriteConfig } from "@/lib/appwrite/config";
+import { IUser } from '@/types';
+
 import { Loader } from "@/components/shared"
 
 type RoomMessagesProps = {
   currentRoom: Models.Document;
-  user: Models.Document;
+  user: Models.Document | IUser;
 };
 
 type Message = {

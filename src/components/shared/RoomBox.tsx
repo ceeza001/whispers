@@ -1,8 +1,10 @@
 import { Models } from "appwrite"
-
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+
 import { useJoinRoom, useDeleteRoom } from '@/lib/react-query/queries';
+import { IUser } from '@/types';
+
 import RoomForm from '@/components/forms/RoomForm';
 import { RoomMessages } from '@/components/shared';
 import { Button } from '@/components/ui';
@@ -14,7 +16,7 @@ import {
 
 type RoomBoxProps = {
   currentRoom: Models.Document;
-  user: Models.Document;
+  user: Models.Document | IUser;
   membersList: Models.Document[];
   aMember: boolean; // Assuming aMember is a boolean
 };
