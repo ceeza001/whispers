@@ -18,7 +18,7 @@ const Write = () => {
           <h2 className="h3-bold md:h2-bold text-left w-full">Create Message</h2>
         </div>
 
-        <WriteForm room={id} />
+        <WriteForm room={id || ""} />
       </div>
     </div>
   );

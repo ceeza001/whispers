@@ -41,7 +41,7 @@ const CreateRoom = () => {
   });
 
   // Queries
-  const { mutateAsync: createGroup, isLoading: isCreatingGroup } = useCreateGroup();
+  const { mutateAsync: createGroup } = useCreateGroup();
   
   // Handler
   const handleCreateGroup = async (group: z.infer<typeof RoomValidation>) => {

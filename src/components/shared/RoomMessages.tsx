@@ -20,33 +20,32 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   
   const getMessages = () => {
-    setMessages(currentRoom?.messages);
-  }
+    setMessages(currentRoom?.messages || []);
+  };
     
   useEffect(() => {
-    getMessages();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      getMessages();
 
-    const unsubscribe = client.subscribe(`databases.${appwriteConfig.databaseId}.collections.${appwriteConfig.messageCollectionId}.documents`, response => {
-      if (response.events.includes("databases.*.collections.*.documents.*.create")) {
-        console.log('A MESSAGE WAS CREATED');
-        setMessages(prevState => [...prevState, response.payload]);
-      }
+      const unsubscribe = client.subscribe(
+        `databases.${appwriteConfig.databaseId}.collections.${appwriteConfig.messageCollectionId}.documents`,
+        (response) => {
+          if (response.events.includes("databases.*.collections.*.documents.*.create")) {
+            console.log('A MESSAGE WAS CREATED');
+            setMessages((prevState: Message[]) => [...prevState, response.payload as Message]);
+          }
 
-      if (response.events.includes("databases.*.collections.*.documents.*.delete")) {
-        console.log('A MESSAGE WAS DELETED!!!');
-        setMessages(prevState => prevState.filter(message => message?.$id !== (response.payload as Message)?.$id));
-      }
-    });
+          if (response.events.includes("databases.*.collections.*.documents.*.delete")) {
+            console.log('A MESSAGE WAS DELETED!!!');
+            setMessages((prevState: Message[]) => prevState.filter((message) => message?.$id !== (response.payload as Message)?.$id));
+          }
+        }
+      );
 
-    console.log('unsubscribe:', unsubscribe);
-
-    return () => {
-      unsubscribe();
-    };
+      return () => {
+        unsubscribe();
+      };
   }, [user.id, currentRoom]);
-
-
+  
   return (
   		<>
         {!messages ? (

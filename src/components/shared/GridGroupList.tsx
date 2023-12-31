@@ -2,7 +2,7 @@ import { Models } from "appwrite";
 import { Link } from "react-router-dom";
 
 type GridPostListProps = {
-  room: Models.Document[];
+  room: Models.Document;
 };
 
 const GridGroupList = ({

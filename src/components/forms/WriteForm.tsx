@@ -3,7 +3,6 @@ import { Models } from "appwrite";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   Form,
   FormControl,
@@ -21,7 +20,7 @@ import { useWriteMessage } from "@/lib/react-query/queries";
 
 type WriteFormProps = {
   message?: Models.Document;
-  room;
+  room: string;
 };
 
 const WriteForm = ({ message, room }: WriteFormProps) => {
@@ -35,7 +34,7 @@ const WriteForm = ({ message, room }: WriteFormProps) => {
   });
 
   // Query
-  const { mutateAsync: writeMessage, isLoading: isLoadingWrite } =
+  const { mutateAsync: writeMessage, isPending: isLoadingWrite } =
     useWriteMessage();
   
   // Handler

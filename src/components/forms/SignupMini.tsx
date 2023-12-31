@@ -16,7 +16,7 @@ import { useUserContext } from "@/context/AuthContext";
 const SignupMini = () => {
   const { toast } = useToast();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
@@ -28,8 +28,8 @@ const SignupMini = () => {
   });
 
   // Queries
-  const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } = useCreateUserAccount();
-  const { mutateAsync: signInAccount, isLoading: isSigningInUser } = useSignInAccount();
+  const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateUserAccount();
+  const { mutateAsync: signInAccount, isPending: isSigningInUser } = useSignInAccount();
 
   // Handler
   const handleSignup = async (user: z.infer<typeof SignupValidation>) => {
@@ -41,10 +41,10 @@ const SignupMini = () => {
 
         return;
       }
+      
+      setErrorMessage("");
 
-      setErrorMessage(newUser.message);
-
-      if (!newUser.message) {
+      if (newUser) {
         const session = await signInAccount({
           email: user.email,
           password: user.password,
@@ -56,7 +56,7 @@ const SignupMini = () => {
           return;
         }
       }
-
+      
       const isLoggedIn = await checkAuthUser();
 
       if (isLoggedIn) {
@@ -68,9 +68,12 @@ const SignupMini = () => {
       }
     } catch (error) {
       console.log({ error });
+      // Use assertion to tell TypeScript the type of error
+      setErrorMessage((error as Error)?.message || "Unknown error");
+      toast({ title: (error as Error)?.message || "Unknown error" });
     }
   };
-
+  
   return (
     <Form {...form}>
       <div className="p-[1rem] sm:max-w-420 flex-center flex-col">

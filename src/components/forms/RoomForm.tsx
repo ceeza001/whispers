@@ -19,7 +19,7 @@ import { useWriteRoomMessage } from "@/lib/react-query/queries";
 
 type RoomFormProps = {
   message?: Models.Document;
-  room;
+  room: string;
 };
 
 const RoomForm = ({ message, room }: RoomFormProps) => {
@@ -34,7 +34,7 @@ const RoomForm = ({ message, room }: RoomFormProps) => {
   });
 
   // Query
-  const { mutateAsync: writeRoomMessage, isLoading: isLoadingWrite } =
+  const { mutateAsync: writeRoomMessage, isPending: isLoadingWrite } =
     useWriteRoomMessage();
 
   // Handler

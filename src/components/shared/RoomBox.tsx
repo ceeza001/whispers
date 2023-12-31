@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { Models } from "appwrite"
+
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useJoinRoom, useDeleteRoom } from '@/lib/react-query/queries';
-import { useUserContext } from '@/context/AuthContext';
 import RoomForm from '@/components/forms/RoomForm';
-import { Loader, RoomMessages } from '@/components/shared';
+import { RoomMessages } from '@/components/shared';
 import { Button } from '@/components/ui';
-import { useToast } from '@/components/ui/use-toast';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,14 +21,14 @@ type RoomBoxProps = {
 
 const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMember }) => {
   const navigate = useNavigate();
-  const [members, setMembers] = useState<string[]>(membersList.map(member => member.id));
+  const [members, setMembers] = useState<string[]>(membersList.map(member => member.$id));
   const [roomDeleted, setRoomDeleted] = useState(false);
-  const [remainingTime, setRemainingTime] = useState<number | null>(null);
+  const [remainingTime, setRemainingTime] = useState<number | 0>(0);
 
-  const { mutateAsync: joinRoom, isLoading: isLoadingJoin } = useJoinRoom();
+  const { mutateAsync: joinRoom } = useJoinRoom();
   const { mutate: deleteRoom } = useDeleteRoom();
 
-  const handleJoinRoom = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+  const handleJoinRoom = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
 
     let membersArray = Array.isArray(members) ? [...members] : [];
@@ -44,8 +44,8 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
     navigate(0);
   };
 
-  const handleDeleteRoom = async () => {
-    try {
+  const handleDeleteRoom = async () => {  
+      try {
       await deleteRoom({ roomId: currentRoom?.$id });
       setRoomDeleted(true);
     } catch (error) {
@@ -65,7 +65,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
         setRemainingTime(remainingTimeMillis);
 
         const intervalId = setInterval(() => {
-          setRemainingTime((prevTime) => (prevTime !== null ? prevTime - 1000 : null));
+          setRemainingTime((prevTime: number | 0) => (prevTime !== 0 ? prevTime - 1000 : 0));
         }, 1000);
 
         return () => clearInterval(intervalId);
@@ -159,12 +159,12 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
                   />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <span>Room Info</span>
-                  <span onClick={handleShare}>Share</span>
+                  <Button>Room Info</Button>
+                  <Button onClick={handleShare}>Share</Button>
                   {user.id !== currentRoom.owner?.$id ? (
-                    <span onClick={(e) => handleJoinRoom(e)}>Leave Room</span>
+                    <Button onClick={(e) => handleJoinRoom(e)}>Leave Room</Button>
                   ) : (
-                    <span onClick={(e) => handleDeleteRoom(e)}>Delete Room</span>
+                    <Button onClick={() => handleDeleteRoom()}>Delete Room</Button>
                   )}
                 </DropdownMenuContent>
               </DropdownMenu>

@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useParams } from "react-router-dom";
-
 import {
   useGetRoomById,
 } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
+import { Models } from "appwrite"
 
 import { Loader, RoomBox } from "@/components/shared";
-import { useToast } from "@/components/ui/use-toast";
 import SignupMini from "@/components/forms/SignupMini"
 import SigninMini from "@/components/forms/SigninMini"
 
@@ -18,7 +17,7 @@ const Room = () => {
   
   const { data: currentRoom } = useGetRoomById(id || "");
   
-  const membersList = currentRoom?.members.map((user) => user);
+  const membersList = currentRoom?.members.map((user: Models.Document) => user);
   
   if (!currentRoom) {
     return (
@@ -57,8 +56,7 @@ const Room = () => {
     )
   }
   
-  const aMember = currentRoom.members.some((member) => member === user.id);
-
+  const aMember: boolean = currentRoom.members.some((member: { $id: string }) => member.$id === user.id);
   
   return <RoomBox currentRoom={currentRoom} user={user} membersList={membersList} aMember={aMember} />;
 };

@@ -36,7 +36,7 @@ const ParticlesContainer = () => {
                   enable: true,
                   mode: 'repulse',
                 },
-                reSize: 'true',
+                resize: true,
               },
               modes: {
                 push: {
@@ -63,7 +63,7 @@ const ParticlesContainer = () => {
                 enable: true,
               },
               move: {
-                directions: 'none',
+                direction: 'none',
                 enable: true,
                 outModes: {
                   default: 'bounce',

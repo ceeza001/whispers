@@ -35,7 +35,7 @@ const UpdateProfile = () => {
 
   // Queries
   const { data: currentUser } = useGetUserById(id || "");
-  const { mutateAsync: updateUser, isLoading: isLoadingUpdate } =
+  const { mutateAsync: updateUser, isPending: isLoadingUpdate } =
     useUpdateUser();
 
   if (!currentUser)
@@ -64,7 +64,6 @@ const UpdateProfile = () => {
     setUser({
       ...user,
       username: updatedUser?.username,
-      bio: updatedUser?.bio,
       imageUrl: updatedUser?.imageUrl,
     });
     return navigate(`/profile`);

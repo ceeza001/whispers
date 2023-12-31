@@ -81,9 +81,11 @@ const Profile = () => {
 
   // Filter groups where current user is a member
   const filteredGroups = groups?.documents.filter((group: Models.Document) =>
-    group.members.some((member: string) => member === user.id) && group.members.length > 0
+    group.members.some((member: { $id: string }) => member.$id === user.id) && group.members.length > 0
   );
-
+  
+  
+  console.log(groups);
   const handleShare = async () => {
     if (navigator.share) {
       try {

@@ -16,10 +16,10 @@ import { useUserContext } from "@/context/AuthContext";
 const SigninMini = () => {
   const { toast } = useToast();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Query
-  const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
+  const { mutateAsync: signInAccount, isPending } = useSignInAccount();
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -30,22 +30,27 @@ const SigninMini = () => {
   });
 
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
-    const session = await signInAccount(user);
+    try {
+      const session = await signInAccount(user);
 
-    if (!session) {
-      toast({ title: "Login failed. Please try again." });
+      if (!session) {
+        toast({ title: "Login failed. Please try again." });
+        return;
+      }
 
-      return;
-    }
+      setErrorMessage(""); // Reset error message if successful login
+      const isLoggedIn = await checkAuthUser();
+      console.log(isLoggedIn);
 
-    setErrorMessage(session.message);
-    const isLoggedIn = await checkAuthUser();
-    console.log(isLoggedIn);
-
-    if (isLoggedIn) {
-      form.reset();
-    } else {
-      toast({ title: "Login failed. Please try again." });
+      if (isLoggedIn) {
+        form.reset();
+      } else {
+        toast({ title: "Login failed. Please try again." });
+      }
+    } catch (error) {
+      // Use assertion to tell TypeScript the type of error
+      setErrorMessage((error as Error)?.message || "Unknown error");
+      toast({ title: (error as Error)?.message || "Unknown error" });
     }
   };
 
@@ -98,7 +103,7 @@ const SigninMini = () => {
           />
 
           <Button type="submit" className="shad-button_primary">
-            {isLoading || isUserLoading ? (
+            {isPending || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>
