@@ -102,7 +102,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
     );
   }
 
-  const value = `https://whispers.blckcube.repl.co/room/${currentRoom.$id}`;
+  const value = `https://whispers-eight.vercel.app/room/${currentRoom.$id}`;
 
   const handleShare = async () => {
     if (navigator.share) {

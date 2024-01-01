@@ -77,7 +77,7 @@ const Profile = () => {
     );
   }
 
-  const value = currentUser?.room ? `https://whispers.blckcube.repl.co/${currentUser.room.$id}` : '';
+  const value = currentUser?.room ? `https://whispers-eight.vercel.app/${currentUser.room.$id}` : '';
 
   // Filter groups where current user is a member
   const filteredGroups = groups?.documents.filter((group: Models.Document) =>
