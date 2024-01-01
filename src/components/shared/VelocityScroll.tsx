@@ -15,7 +15,7 @@ interface ParallaxProps {
   baseVelocity: number;
 }
 
-function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
+function ParallaxText({ children, baseVelocity = -2 }: ParallaxProps) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -36,17 +36,13 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 
   const directionFactor = useRef<number>(1);
   useAnimationFrame((delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
+    let moveBy = directionFactor.current * baseVelocity/100 * (delta / 10000);
 
     /**
      * This is what changes the direction of the scroll once we
      * switch scrolling directions.
      */
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
-    }
+     directionFactor.current = 1;
 
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
 
@@ -78,7 +74,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 export default function VelocityScroll() {
   return (
     <section>
-      <ParallaxText baseVelocity={-5}>Taurus . Blackcube tech . Whispers .</ParallaxText>
+      <ParallaxText baseVelocity={-4}>Taurus . Blackcube tech . Whispers .</ParallaxText>
     </section>
   );
 }
