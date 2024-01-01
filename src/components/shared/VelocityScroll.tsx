@@ -78,7 +78,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 export default function VelocityScroll() {
   return (
     <section>
-      <ParallaxText baseVelocity={-5}>Taurus . Blackcube tech . Whispers .</ParallaxText>
+      <ParallaxText baseVelocity={-0.5}>Taurus . Blackcube tech . Whispers .</ParallaxText>
     </section>
   );
 }
