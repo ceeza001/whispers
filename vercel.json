@@ -1,42 +1,40 @@
 {
   "routes": [
-    { "handle": "filesystem" },
     {
       "src": "/sign-in",
-      "dest": "/index.html"
+      "dest": "/"
     },
     {
       "src": "/sign-up",
-      "dest": "/index.html"
+      "dest": "/"
     },
     {
       "src": "/info*",
-      "dest": "/index.html"
+      "dest": "/"
     },
     {
       "src": "/profile/*",
-      "dest": "/index.html"
+      "dest": "/"
     },
     {
       "src": "/update-profile/:id",
-      "dest": "/index.html"
+      "dest": "/"
     },
     {
       "src": "/:id",
-      "dest": "/index.html"
+      "dest": "/"
     },
     {
       "src": "/messages",
-      "dest": "/index.html"
+      "dest": "/"
     },
     {
       "src": "/room/:id",
-      "dest": "/index.html"
+      "dest": "/"
     },
     {
       "src": "/.*",
-      "dest": "/index.html"
+      "dest": "/"
     },
-    { "handle": "filesystem" }
   ]
 }
