@@ -17,11 +17,11 @@
       "dest": "/"
     },
     {
-      "src": "/update-profile/:id",
+      "src": "/update-profile/:id*",
       "dest": "/"
     },
     {
-      "src": "/:id",
+      "src": "/:id*",
       "dest": "/"
     },
     {
@@ -29,7 +29,7 @@
       "dest": "/"
     },
     {
-      "src": "/room/:id",
+      "src": "/room/:id*",
       "dest": "/"
     },
     {
