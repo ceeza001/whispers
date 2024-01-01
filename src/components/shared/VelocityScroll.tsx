@@ -36,17 +36,13 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 
   const directionFactor = useRef<number>(1);
   useAnimationFrame((delta) => {
-    let moveBy = directionFactor.current * baseVelocity/100 * (delta / 1000);
+    let moveBy = directionFactor.current * baseVelocity/10 * (delta / 1000);
 
     /**
      * This is what changes the direction of the scroll once we
      * switch scrolling directions.
      */
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
-    }
+     directionFactor.current = -1;
 
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
 
