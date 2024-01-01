@@ -42,7 +42,7 @@ function ParallaxText({ children, baseVelocity = -2 }: ParallaxProps) {
      * This is what changes the direction of the scroll once we
      * switch scrolling directions.
      */
-     directionFactor.current = -1;
+     directionFactor.current = 1;
 
     moveBy += directionFactor.current * moveBy * velocityFactor.get();
 
