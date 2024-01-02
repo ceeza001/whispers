@@ -84,6 +84,17 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
       console.error('Error deleting room:', error);
     }
   };
+
+  if (roomDeleted) {
+    return (
+      <div className="flex flex-col gap-4 items-center justify-center w-screen h-[80vh]">
+        <p className="text-light-3 text-center">This room has been deleted</p>
+        <Button onClick={() => navigate(-1)} className="shad-button_primary">
+          Back
+        </Button>
+      </div>
+    );
+  }
   
   return (
   		<div className="h-full md:h-full overflow-scroll">
