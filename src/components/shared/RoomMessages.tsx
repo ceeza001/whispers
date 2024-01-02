@@ -1,11 +1,13 @@
 import { Models } from "appwrite";
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import client, { appwriteConfig } from "@/lib/appwrite/config";
 import { useDeleteRoom } from '@/lib/react-query/queries';
 import { IUser } from '@/types';
 
 import { Loader } from "@/components/shared"
+import { Button } from '@/components/ui';
 
 type RoomMessagesProps = {
   currentRoom: Models.Document;
@@ -21,6 +23,7 @@ type Message = {
 };
 
 const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
+  const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
   const [remainingTime, setRemainingTime] = useState<number | 0>(0);
   const [roomDeleted, setRoomDeleted] = useState(false);
