@@ -174,15 +174,6 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
           </div>
         </div>
 
-        <div className="bg-gray-500 flex flex-col gap-2 items-center text-center mx-auto mt-10 mb-4 w-[80%] rounded-lg p-[1rem] subtle-semibold">
-          <p>
-            Quick reminder to keep the vibes friendly and cool in the chat room. Spread positivity, be respectful, and report anything off.
-          </p>
-          <p>
-            Let's make every chat awesome! 🚀
-          </p>
-        </div>
-
         <RoomMessages currentRoom={currentRoom} user={user} />
 
         <div className="text-light-3 flex flex-col gap-2 items-center justify-center subtle-semibold">

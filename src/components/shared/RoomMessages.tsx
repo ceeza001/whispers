@@ -50,7 +50,16 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
   }, [user.id, currentRoom]);
   
   return (
-  		<>
+  		<div className="h-full md:h-full overflow-scroll">
+        <div className="bg-gray-500 flex flex-col gap-2 items-center text-center mx-auto mt-10 mb-4 w-[80%] rounded-lg p-[1rem] subtle-semibold">
+          <p>
+            Quick reminder to keep the vibes friendly and cool in the chat room. Spread positivity, be respectful, and report anything off.
+          </p>
+          <p>
+            Let's make every chat awesome! 🚀
+          </p>
+        </div>
+        
         {!messages ? (
           <div className="flex-center">
             <Loader />
@@ -60,7 +69,7 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
             <p>No messages in this chat room yet.</p>
           </div>
         ) : (
-          <div className="h-full md:h-full overflow-scroll">
+          <div>
             {messages.map((message) => (
               <div key={message.$id} className={`grid w-full ${message.sender?.$id == user?.id && " justify-end"}`}>
                 <div className={`max-w-[15rem] w-fit bg-primary-600 rounded-lg p-[0.5rem] mx-[2px] my-2 ${message.sender?.$id !== user?.id && ("glassmorphism")}`}>
@@ -73,7 +82,7 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
           </div>
         )}
 
-      </>
+      </div>
   )
 }
 
