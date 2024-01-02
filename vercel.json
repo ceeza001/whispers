@@ -1,40 +1,11 @@
 {
-  "routes": [
-    {
-      "src": "/sign-in",
-      "dest": "/"
+    "github": {
+        "silent": true
     },
-    {
-      "src": "/sign-up",
-      "dest": "/"
-    },
-    {
-      "src": "/info*",
-      "dest": "/"
-    },
-    {
-      "src": "/profile/*",
-      "dest": "/"
-    },
-    {
-      "src": "/update-profile/:id*",
-      "dest": "/:id"
-    },
-    {
-      "src": "/:id*",
-      "dest": "/:id"
-    },
-    {
-      "src": "/messages",
-      "dest": "/"
-    },
-    {
-      "src": "/room/:id*",
-      "dest": "/id"
-    },
-    {
-      "src": "/",
-      "dest": "/"
-    }
-  ]
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/"
+        }
+    ]
 }
