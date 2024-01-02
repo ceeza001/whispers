@@ -18,11 +18,11 @@
     },
     {
       "src": "/update-profile/:id*",
-      "dest": "/"
+      "dest": "/:id"
     },
     {
       "src": "/:id*",
-      "dest": "/"
+      "dest": "/:id"
     },
     {
       "src": "/messages",
@@ -30,7 +30,7 @@
     },
     {
       "src": "/room/:id*",
-      "dest": "/"
+      "dest": "/id"
     },
     {
       "src": "/",
