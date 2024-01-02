@@ -23,7 +23,10 @@ type Message = {
 const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [remainingTime, setRemainingTime] = useState<number | 0>(0);
-
+  const [roomDeleted, setRoomDeleted] = useState(false);
+  
+  const { mutate: deleteRoom } = useDeleteRoom();
+  
   const getMessages = () => {
     setMessages(currentRoom?.messages || []);
   };
