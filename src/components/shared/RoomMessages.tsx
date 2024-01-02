@@ -2,6 +2,7 @@ import { Models } from "appwrite";
 import { useState, useEffect } from 'react';
 
 import client, { appwriteConfig } from "@/lib/appwrite/config";
+import { useDeleteRoom } from '@/lib/react-query/queries';
 import { IUser } from '@/types';
 
 import { Loader } from "@/components/shared"
@@ -72,6 +73,15 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
     calculateRemainingTime();
   }, [currentRoom.$createdAt, currentRoom.$id]);
 
+  const handleDeleteRoom = async () => {  
+      try {
+      await deleteRoom({ roomId: currentRoom?.$id });
+      setRoomDeleted(true);
+    } catch (error) {
+      console.error('Error deleting room:', error);
+    }
+  };
+  
   return (
   		<div className="h-full md:h-full overflow-scroll">
         <div className="bg-gray-500 flex flex-col gap-2 items-center text-center mx-auto mt-10 mb-4 w-[80%] rounded-lg p-[1rem] subtle-semibold">

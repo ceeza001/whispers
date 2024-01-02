@@ -1,5 +1,5 @@
 import { Models } from "appwrite"
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { useJoinRoom, useDeleteRoom } from '@/lib/react-query/queries';
