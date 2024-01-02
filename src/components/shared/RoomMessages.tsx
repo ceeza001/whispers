@@ -21,7 +21,8 @@ type Message = {
 
 const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
-  
+  const [remainingTime, setRemainingTime] = useState<number | 0>(0);
+
   const getMessages = () => {
     setMessages(currentRoom?.messages || []);
   };
@@ -48,7 +49,29 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
         unsubscribe();
       };
   }, [user.id, currentRoom]);
-  
+
+  useEffect(() => {
+    const calculateRemainingTime = () => {
+      const timeDifference = new Date().getTime() - new Date(currentRoom.$createdAt).getTime();
+      const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+
+      if (daysDifference > 2) {
+        handleDeleteRoom();
+      } else {
+        const remainingTimeMillis = 2 * 24 * 60 * 60 * 1000 - timeDifference;
+        setRemainingTime(remainingTimeMillis);
+
+        const intervalId = setInterval(() => {
+          setRemainingTime((prevTime: number | 0) => (prevTime !== 0 ? prevTime - 1000 : 0));
+        }, 1000);
+
+        return () => clearInterval(intervalId);
+      }
+    };
+
+    calculateRemainingTime();
+  }, [currentRoom.$createdAt, currentRoom.$id]);
+
   return (
   		<div className="h-full md:h-full overflow-scroll">
         <div className="bg-gray-500 flex flex-col gap-2 items-center text-center mx-auto mt-10 mb-4 w-[80%] rounded-lg p-[1rem] subtle-semibold">
@@ -82,8 +105,20 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
           </div>
         )}
 
+        <div className="text-light-3 flex flex-col gap-2 items-center justify-center subtle-semibold">
+          <p>This room will be automatically deleted in:</p>
+          <p>{formatRemainingTime(remainingTime)}</p>
+        </div>
       </div>
   )
 }
+
+const formatRemainingTime = (timeInMilliseconds: number): string => {
+  const minutes = Math.floor((timeInMilliseconds / (1000 * 60)) % 60);
+  const hours = Math.floor((timeInMilliseconds / (1000 * 60 * 60)) % 24);
+  const days = Math.floor(timeInMilliseconds / (1000 * 60 * 60 * 24));
+
+  return `${days}d ${hours}h ${minutes}m`;
+};
 
 export default RoomMessages

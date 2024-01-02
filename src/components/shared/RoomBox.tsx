@@ -25,8 +25,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
   const navigate = useNavigate();
   const [members, setMembers] = useState<string[]>(membersList.map(member => member.$id));
   const [roomDeleted, setRoomDeleted] = useState(false);
-  const [remainingTime, setRemainingTime] = useState<number | 0>(0);
-
+  
   const { mutateAsync: joinRoom } = useJoinRoom();
   const { mutate: deleteRoom } = useDeleteRoom();
 
@@ -54,28 +53,6 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
       console.error('Error deleting room:', error);
     }
   };
-
-  useEffect(() => {
-    const calculateRemainingTime = () => {
-      const timeDifference = new Date().getTime() - new Date(currentRoom.$createdAt).getTime();
-      const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
-
-      if (daysDifference > 2) {
-        handleDeleteRoom();
-      } else {
-        const remainingTimeMillis = 2 * 24 * 60 * 60 * 1000 - timeDifference;
-        setRemainingTime(remainingTimeMillis);
-
-        const intervalId = setInterval(() => {
-          setRemainingTime((prevTime: number | 0) => (prevTime !== 0 ? prevTime - 1000 : 0));
-        }, 1000);
-
-        return () => clearInterval(intervalId);
-      }
-    };
-
-    calculateRemainingTime();
-  }, [currentRoom.$createdAt, currentRoom.$id]);
 
   if (roomDeleted) {
     return (
@@ -176,25 +153,12 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
 
         <RoomMessages currentRoom={currentRoom} user={user} />
 
-        <div className="text-light-3 flex flex-col gap-2 items-center justify-center subtle-semibold">
-          <p>This room will be automatically deleted in:</p>
-          <p>{formatRemainingTime(remainingTime)}</p>
-        </div>
-
         <div className="absolute bottom-0 left-0 p-[0.4rem] w-full h-[4rem] bg-dark-2">
           <RoomForm room={currentRoom.$id} />
         </div>
       </div>
     </div>
   );
-};
-
-const formatRemainingTime = (timeInMilliseconds: number): string => {
-  const minutes = Math.floor((timeInMilliseconds / (1000 * 60)) % 60);
-  const hours = Math.floor((timeInMilliseconds / (1000 * 60 * 60)) % 24);
-  const days = Math.floor(timeInMilliseconds / (1000 * 60 * 60 * 24));
-
-  return `${days}d ${hours}h ${minutes}m`;
 };
 
 export default RoomBox;
