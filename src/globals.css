@@ -178,7 +178,7 @@
 
   /* Room */
   .room-container {
-    @apply flex flex-col flex-1 py-[4rem] px-2 md:custom-scrollbar fixed top-0 left-0 h-[100dvh] md:max-h-[70vh] glassmorphism w-full max-w-[600px] mx-auto md:relative z-[50] transition-all duration-100 ease-in-out;
+    @apply flex flex-col flex-1 py-[4rem] px-2 md:custom-scrollbar fixed top-0 left-0 h-[100vh] md:max-h-[70vh] glassmorphism w-full max-w-[600px] mx-auto md:relative z-[50] transition-all duration-100 ease-in-out;
   }
 
   /* Home */

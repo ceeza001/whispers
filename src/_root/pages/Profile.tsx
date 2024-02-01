@@ -205,7 +205,7 @@ const Profile = () => {
       <div className="w-full mt-20 md:mt-2">
 
       <div className="flex-between w-full max-w-5xl mt-6 mb-7">
-        <h3 className="body-bold md:h3-bold">Your rooms</h3>
+        <h3 className="body-bold">Your rooms</h3>
 
         <div className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2 cursor-pointer">
           <p className="small-medium md:base-medium text-light-2">All</p>
