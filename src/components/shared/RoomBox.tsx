@@ -153,7 +153,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
 
         <RoomMessages currentRoom={currentRoom} user={user} />
 
-        <div className="absolute bottom-0 left-0 p-[0.4rem] w-full h-[4rem] bg-dark-2">
+        <div className="fixed md:absolute bottom-0 left-0 p-[0.4rem] w-full h-[4rem] bg-dark-2">
           <RoomForm room={currentRoom.$id} />
         </div>
       </div>
