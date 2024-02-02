@@ -1,4 +1,5 @@
 export { default as Footer } from "./Footer";
+export { default as FloatingPhone } from "./FloatingPhone";
 export { default as FooterMini } from "./FooterMini";
 export { default as Hero } from "./Hero";
 export { default as Loader } from "./Loader";

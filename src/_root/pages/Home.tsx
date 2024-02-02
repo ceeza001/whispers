@@ -3,6 +3,7 @@ import {
   Features,
   Features2,
   Process,
+  FloatingPhone,
   Footer,
 } from "@/components/shared"
 import { Button } from "@/components/ui"
@@ -29,11 +30,19 @@ const Home = () => {
         <Process />
       </div>
 
-      <div className="md:px-8 lg:px-14 mt-8 text-left p-[1rem] md:w-[50%]">
-        <h1 className="h1-bold">Go incognito</h1>
-        <p className="my-4 text-text-color">
-          In the big world of the internet, discover a place where things get mysterious. Get ready to be part of a space where who you are doesn't matter, and talks stay in soft whispers. Take a dive into this hidden world with <span className="hover-font body-bold text-light-2">Whispers</span>. Follow your curiosity, and see the unfolding secrets of digital chatting. It's not just about hiding; it's an open door to new ways of connecting. Welcome to a world where quiet talks speak louder than you'd expect.
-        </p>
+      <div className="md:px-8 lg:px-14 mt-8 p-[1rem]">
+        <h1 className="h1-bold my-10">Go incognito</h1>
+        <div className="mt-6 flex flex-wrap-reverse md:flex-nowrap justify-between items-center">
+          <div className="w-full">
+            <p className="my-4 text-center text-text-color">
+              In the big world of the internet, discover a place where things get mysterious. Get ready to be part of a space where who you are doesn't matter, and talks stay in soft whispers. Take a dive into this hidden world with <span className="hover-font body-bold text-light-2">Whispers</span>. Follow your curiosity, and see the unfolding secrets of digital chatting. It's not just about hiding; it's an open door to new ways of connecting. Welcome to a world where quiet talks speak louder than you'd expect.
+            </p>
+          </div>
+
+          <div className="w-full grid place-content-center">
+            <FloatingPhone />
+          </div>
+        </div>
       </div>
       
       <div className="md:px-8 lg:px-14 mt-10 text-center mx-auto md:w-[80%]">
