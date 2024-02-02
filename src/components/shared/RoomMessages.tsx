@@ -100,7 +100,7 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
   }
   
   return (
-  		<div className="h-full md:h-full overflow-scroll">
+  		<div className="h-full md:h-full overflow-scroll max-w-[600px] mx-auto p-[0.4rem] md:border-x">
         <div className="bg-gray-500 flex flex-col gap-2 items-center text-center mx-auto mt-10 mb-4 w-[80%] rounded-lg p-[1rem] subtle-semibold">
           <p>
             Quick reminder to keep the vibes friendly and cool in the chat room. Spread positivity, be respectful, and report anything off.

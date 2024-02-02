@@ -21,10 +21,10 @@ import {
 } from "@/components/ui/sheet"
 
 export const navLinks = [
-  {id: 1, title: "Home", path: "/home"},
-  {id: 2, title: "Support", path: "/support"},
-  {id: 3, title: "Faq", path: "/faq"},
-  {id: 4, title: "About", path: "/about"},
+  {id: 1, title: "Home", path: "/"},
+  {id: 2, title: "Support", path: "/info/support"},
+  {id: 3, title: "Faq", path: "/info/faq"},
+  {id: 4, title: "About", path: "/info/about"},
 ];
 
 const Topbar = () => {
@@ -64,13 +64,31 @@ const Topbar = () => {
             </NavLink>
           ))}
         </div>
+
         <div className="flex gap-4 items-center">
-          {pathname =='/' && (
+          {pathname =='/' ? (
             <Link
               to="/sign-up"
               className="border-2 border-primary-500 rounded-lg p-2">
               Get Started
             </Link>
+          ) : (
+            <ul className="hidden md:flex gap-2">
+              <li>
+                 <NavLink
+                  to="/Messages"
+                >
+                  Messages
+                </NavLink>
+              </li>
+              <li>
+                 <NavLink
+                  to="/profile"
+                >
+                  Profile
+                </NavLink>
+              </li>
+            </ul>
           )}
           <div className="flex gap-4 md:hidden">
             <Sheet>

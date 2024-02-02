@@ -99,9 +99,9 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
   };
 
   return (
-    <div className="md:flex flex-col justify-center items-center w-full md:h-[100vh]">
+    <div className="w-full fixed top-0 z-[900] h-full">
       <div className="room-container">
-        <div className="fixed md:absolute top-0 left-0 p-[0.4rem] py-4 w-full bg-dark-2 ">
+        <div className="fixed top-0 left-0 p-[0.4rem] py-4 w-full bg-dark-2 ">
           <div className="flex-between items-center">
             <div className="flex items-center gap-1">
               <Link to="/profile" className="p-0">
