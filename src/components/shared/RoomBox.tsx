@@ -100,7 +100,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
 
   return (
     <div className="md:flex flex-col justify-center items-center w-full md:h-[100vh]">
-      <div className="room-container">
+      <div className="room-container screen-height">
         <div className="fixed md:absolute top-0 left-0 p-[0.4rem] py-4 w-full bg-dark-2 ">
           <div className="flex-between items-center">
             <div className="flex items-center gap-1">
