@@ -99,7 +99,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
   };
 
   return (
-    <div className="w-full fixed top-0 z-[900] h-full">
+    <div className="w-full fixed top-0 z-[100] h-full">
       <div className="room-container">
         <div className="fixed top-0 left-0 p-[0.4rem] py-4 w-full bg-dark-2 ">
           <div className="flex-between items-center">
@@ -129,7 +129,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
 
             <span>
               <DropdownMenu>
-                <DropdownMenuTrigger className="border-0 outline-none">
+                <DropdownMenuTrigger className="border-0 outline-none z-[101]">
                   <img
                     src="/assets/icons/ellipsis-v.svg"
                     width={24}
