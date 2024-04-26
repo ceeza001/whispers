@@ -1,9 +1,10 @@
 import { Models } from "appwrite"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { useJoinRoom, useDeleteRoom } from '@/lib/react-query/queries';
 import { IUser } from '@/types';
+import client, { appwriteConfig } from "@/lib/appwrite/config";
 
 import RoomForm from '@/components/forms/RoomForm';
 import { RoomMessages } from '@/components/shared';
@@ -21,13 +22,49 @@ type RoomBoxProps = {
   aMember: boolean; // Assuming aMember is a boolean
 };
 
+type Message = {
+  $id?: string;
+  sender?: {
+    $id?: string;
+  };
+  content?: string;
+};
+
 const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMember }) => {
   const navigate = useNavigate();
   const [members, setMembers] = useState<string[]>(membersList.map(member => member.$id));
+  const [messages, setMessages] = useState<Message[]>([]);
   const [roomDeleted, setRoomDeleted] = useState(false);
   
   const { mutateAsync: joinRoom } = useJoinRoom();
   const { mutate: deleteRoom } = useDeleteRoom();
+
+  const getMessages = () => {
+    setMessages(currentRoom?.messages || []);
+  };
+    
+  useEffect(() => {
+      getMessages();
+
+      const unsubscribe = client.subscribe(
+        `databases.${appwriteConfig.databaseId}.collections.${appwriteConfig.messageCollectionId}.documents`,
+        (response) => {
+          if (response.events.includes("databases.*.collections.*.documents.*.create")) {
+            console.log('A MESSAGE WAS CREATED');
+            setMessages((prevState: Message[]) => [...prevState, response.payload as Message]);
+          }
+
+          if (response.events.includes("databases.*.collections.*.documents.*.delete")) {
+            console.log('A MESSAGE WAS DELETED!!!');
+            setMessages((prevState: Message[]) => prevState.filter((message) => message?.$id !== (response.payload as Message)?.$id));
+          }
+        }
+      );
+
+      return () => {
+        unsubscribe();
+      };
+  }, [user.id, currentRoom]);
 
   const handleJoinRoom = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
@@ -65,6 +102,15 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
     );
   }
 
+  if (membersList.length > 0 && !aMember) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 w-screen h-[80vh]">
+        <p>sorry this chat room is filled up.</p>
+        
+      </div>
+    )
+  }
+  
   if (!aMember) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 w-screen h-[80vh]">
@@ -98,6 +144,8 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
     }
   };
 
+  const userSentMessage = messages.some(message => message.sender?.$id === user.id);
+  
   return (
     <div className="w-full fixed top-0 z-[50] h-full">
       <div className="room-container">
@@ -151,10 +199,14 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
           </div>
         </div>
 
-        <RoomMessages currentRoom={currentRoom} user={user} />
+        <RoomMessages currentRoom={currentRoom} messages={messages} user={user} />
 
         <div className="fixed bottom-0 left-0 p-[0.4rem] w-full h-[4rem] bg-dark-2">
-          <RoomForm room={currentRoom.$id} />
+          {!userSentMessage ? (
+             <RoomForm room={currentRoom.$id} />
+          ) : (
+            <div className="flex-col flex-center h-full text-light-3 base-semibold">You have already suggested a name</div>
+          )}
         </div>
       </div>
     </div>
