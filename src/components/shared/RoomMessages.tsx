@@ -5,7 +5,7 @@ import { IUser } from '@/types';
 import { Loader } from "@/components/shared"
 
 type RoomMessagesProps = {
-  messages: Models.Document[];
+  messages: [];
   user: Models.Document | IUser;
 };
 
