@@ -21,11 +21,18 @@ type RoomBoxProps = {
   membersList: Models.Document[];
   aMember: boolean; // Assuming aMember is a boolean
 };
+type Message = {
+  $id?: string;
+  sender?: {
+    $id?: string;
+  };
+  content?: string;
+};
 
 const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMember }) => {
   const navigate = useNavigate();
   const [members, setMembers] = useState<string[]>(membersList.map(member => member.$id));
-  const [messages, setMessages] = useState(currentRoom?.messages || []);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [roomDeleted, setRoomDeleted] = useState(false);
   
   const { mutateAsync: joinRoom } = useJoinRoom();
