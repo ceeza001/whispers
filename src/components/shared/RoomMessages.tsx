@@ -73,7 +73,7 @@ const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
           <div>
             {messages.map((message) => (
               <div key={message.$id} className={`flex flex-col gap-[2px] w-full ${message.sender?.$id == user?.id && " items-end"}`}>
-                <p className="text-[11px]">~ {message.sender.$id}</p>
+                <p className="text-[11px]">~ {message.sender?.$id}</p>
                 <div className={`max-w-[15rem] w-fit bg-primary-600 rounded-lg p-[0.5rem] mx-[2px] my-2 ${message.sender?.$id !== user?.id && ("glassmorphism")}`}>
                   <p className="text-light-2 body-normal">
                     {message.content}
