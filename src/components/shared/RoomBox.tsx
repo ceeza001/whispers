@@ -191,7 +191,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
           </div>
         </div>
 
-        <RoomMessages currentRoom={currentRoom} messages={messages} user={user} />
+        <RoomMessages messages={messages} user={user} />
 
         <div className="fixed bottom-0 left-0 p-[0.4rem] w-full h-[4rem] bg-dark-2">
           {!userSentMessage ? (
