@@ -7,6 +7,7 @@ import client, { appwriteConfig } from "@/lib/appwrite/config";
 import { Loader } from "@/components/shared"
 
 type RoomMessagesProps = {
+  currentRoom: Models.Document;
   user: Models.Document | IUser;
 };
 
@@ -18,7 +19,7 @@ type Message = {
   content?: string;
 };
 
-const RoomMessages = ({ user }: RoomMessagesProps) => {
+const RoomMessages = ({ currentRoom, user }: RoomMessagesProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   
   const getMessages = () => {
