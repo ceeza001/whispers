@@ -1,18 +1,15 @@
 import { Models } from "appwrite";
-import { useState, useEffect } from 'react';
 
-import client, { appwriteConfig } from "@/lib/appwrite/config";
 import { IUser } from '@/types';
 
 import { Loader } from "@/components/shared"
 
 type RoomMessagesProps = {
-  currentRoom: Models.Document;
   messages: Models.Document[];
   user: Models.Document | IUser;
 };
 
-const RoomMessages = ({ currentRoom, user, messages }: RoomMessagesProps) => {
+const RoomMessages = ({ user, messages }: RoomMessagesProps) => {
   
   return (
   		<div className="h-full md:h-full overflow-scroll max-w-[600px] mx-auto p-[0.4rem] md:border-x">
@@ -35,7 +32,7 @@ const RoomMessages = ({ currentRoom, user, messages }: RoomMessagesProps) => {
           </div>
         ) : (
           <div>
-            {messages.map((message, index) => (
+            {messages.map((message) => (
               <div key={message.$id} className={`flex flex-col gap-[2px] w-full ${message.sender?.$id == user?.id && " items-end"}`}>
                 <p className="text-[11px]">~ {message.sender.$id}</p>
                 <div className={`max-w-[15rem] w-fit bg-primary-600 rounded-lg p-[0.5rem] mx-[2px] my-2 ${message.sender?.$id !== user?.id && ("glassmorphism")}`}>
