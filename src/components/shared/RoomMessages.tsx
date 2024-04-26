@@ -1,15 +1,53 @@
 import { Models } from "appwrite";
+import { useState, useEffect } from 'react';
 
 import { IUser } from '@/types';
+import client, { appwriteConfig } from "@/lib/appwrite/config";
 
 import { Loader } from "@/components/shared"
 
 type RoomMessagesProps = {
-  messages: [];
   user: Models.Document | IUser;
 };
 
-const RoomMessages = ({ user, messages }: RoomMessagesProps) => {
+type Message = {
+  $id?: string;
+  sender?: {
+    $id?: string;
+  };
+  content?: string;
+};
+
+const RoomMessages = ({ user }: RoomMessagesProps) => {
+  const [messages, setMessages] = useState<Message[]>([]);
+  
+  const getMessages = () => {
+    setMessages(currentRoom?.messages || []);
+  };
+    
+  useEffect(() => {
+      getMessages();
+
+      const unsubscribe = client.subscribe(
+        `databases.${appwriteConfig.databaseId}.collections.${appwriteConfig.messageCollectionId}.documents`,
+        (response) => {
+          if (response.events.includes("databases.*.collections.*.documents.*.create")) {
+            console.log('A MESSAGE WAS CREATED');
+            setMessages((prevState: Message[]) => [...prevState, response.payload as Message]);
+          }
+
+          if (response.events.includes("databases.*.collections.*.documents.*.delete")) {
+            console.log('A MESSAGE WAS DELETED!!!');
+            setMessages((prevState: Message[]) => prevState.filter((message) => message?.$id !== (response.payload as Message)?.$id));
+          }
+        }
+      );
+
+      return () => {
+        unsubscribe();
+      };
+  }, [user.id, currentRoom]);
+
   
   return (
   		<div className="h-full md:h-full overflow-scroll max-w-[600px] mx-auto p-[0.4rem] md:border-x">

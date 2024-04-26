@@ -21,6 +21,7 @@ type RoomBoxProps = {
   membersList: Models.Document[];
   aMember: boolean; // Assuming aMember is a boolean
 };
+
 type Message = {
   $id?: string;
   sender?: {
@@ -144,7 +145,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
   };
 
   const userSentMessage = messages.some(message => message.sender?.$id === user.id);
-  
+
   return (
     <div className="w-full fixed top-0 z-[50] h-full">
       <div className="room-container">
