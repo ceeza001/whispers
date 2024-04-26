@@ -33,7 +33,7 @@ type Message = {
 const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMember }) => {
   const navigate = useNavigate();
   const [members, setMembers] = useState<string[]>(membersList.map(member => member.$id));
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(currentRoom?.messages || []);
   const [roomDeleted, setRoomDeleted] = useState(false);
   
   const { mutateAsync: joinRoom } = useJoinRoom();
@@ -199,7 +199,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
           </div>
         </div>
 
-        <RoomMessages currentRoom={currentRoom} messages={messages[]} user={user} />
+        <RoomMessages currentRoom={currentRoom} messages={messages} user={user} />
 
         <div className="fixed bottom-0 left-0 p-[0.4rem] w-full h-[4rem] bg-dark-2">
           {!userSentMessage ? (
