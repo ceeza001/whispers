@@ -102,7 +102,7 @@ const RoomBox: React.FC<RoomBoxProps> = ({ currentRoom, user, membersList, aMemb
     );
   }
 
-  if (membersList.length > 0 && !aMember) {
+  if (membersList.length >= 75) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 w-screen h-[80vh]">
         <p>sorry this chat room is filled up.</p>
